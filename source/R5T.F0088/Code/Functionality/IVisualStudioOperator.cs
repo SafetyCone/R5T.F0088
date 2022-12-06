@@ -12,7 +12,7 @@ namespace R5T.F0088
 	[FunctionalityMarker]
 	public partial interface IVisualStudioOperator : IFunctionalityMarker
 	{
-		public async Task OpenSolutionFile(string solutionFilePath)
+		public void OpenSolutionFile(string solutionFilePath)
 		{
 			var command = Cli.Wrap(@"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe")
 				.WithArguments(argumentsBuilder =>
@@ -23,9 +23,8 @@ namespace R5T.F0088
 				.WithConsoleOutput()
 				;
 
-			var execution = command.ExecuteAsync();
-
-			// Do not await.
+			// Do not await. (Since completion will only come when the Visual Studio instance is closed!)
+			command.ExecuteAsync();
 		}
 	}
 }
