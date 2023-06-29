@@ -26,5 +26,20 @@ namespace R5T.F0088
 			// Do not await. (Since completion will only come when the Visual Studio instance is closed!)
 			command.ExecuteAsync();
 		}
+
+		public void Open_ProjectFile(string projectFilePath)
+		{
+            var command = Cli.Wrap(@"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe")
+                .WithArguments(argumentsBuilder =>
+                {
+                    argumentsBuilder.Add(projectFilePath, true);
+                })
+                .WithConsoleError()
+                .WithConsoleOutput()
+                ;
+
+            // Do not await. (Since completion will only come when the Visual Studio instance is closed!)
+            command.ExecuteAsync();
+        }
 	}
 }
